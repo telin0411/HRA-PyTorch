@@ -20,7 +20,7 @@ class Network(nn.Module):
         super(Network, self).__init__()
         self.remove_features = remove_features
         if remove_features:
-            state_shape = state_shape[: -1] + [state_shape[-1] - nc + 1]
+            state_shape = list(state_shape)[: -1] + [list(state_shape)[-1] - nc + 1]
         self.state_shape = state_shape
         self.in_dim = tuple(state_shape)
         self.hidden_dim = hidden_dim

@@ -80,7 +80,7 @@ class AI(object):
     def _remove_features(self, s, i):
         return torch.cat((s[:, :, :, : -self.reward_dim],
                           torch.unsqueeze(s[:, :, :, self.state_shape[-1]
-                                          - self.reward_dim + i], dim=-1)))
+                                          - self.reward_dim + i], dim=-1)), dim=-1)
 
     def _compute_cost(self, q, a, r, t, q2):
         zero_target = torch.FloatTensor(self.minibatch_size, 1)
