@@ -242,7 +242,7 @@ class AI(object):
 
     def load_weights(self, checkpoint=None):
         print("=> loading checkpoint '{}'".format(checkpoint))
-        checkpoint = torch.load(opt.checkpoint)
+        checkpoint = torch.load(checkpoint)
         for i, network in enumerate(self.networks):
             network.load_state_dict(checkpoint["net_"+str(i)])
             self.optimizers[i].load_state_dict(checkpoint["opt_"+str(i)])

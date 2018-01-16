@@ -47,6 +47,12 @@ class DQNExperiment(object):
                 #                     overwrite=True)
                 self.ai.dump_network()
 
+    def demo(self, nb_episodes, rendering_sleep):
+        assert self.env.rendering is True
+        for k in range(nb_episodes):
+            print('\nDemo Episode ', k)
+            self.do_episode(is_learning=False, rendering_sleep=rendering_sleep)
+
     def do_episodes(self, number=1, is_learning=True):
         scores = []
         steps = []
@@ -61,7 +67,7 @@ class DQNExperiment(object):
                 self.episode_num += 1
         return np.mean(scores), np.mean(steps)
 
-    def _do_episode(self, is_learning=True):
+    def _do_episode(self, is_learning=True, rendering_sleep=0.1):
         rewards = []
         self.env.reset()
         self._reset()
@@ -78,6 +84,9 @@ class DQNExperiment(object):
             if not term and self.last_episode_steps >= self.episode_max_len:
                 print('Reaching maximum number of steps in the current episode.')
                 term = True
+            if self.env.rendering:
+                self.env.render()
+                time.sleep(rendering_sleep)
         self.fps = int(self.last_episode_steps / max(0.1, (time.time() - start_time)))
         return rewards
 

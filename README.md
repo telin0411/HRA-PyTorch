@@ -44,6 +44,13 @@ Simple run the following command
 python train.py
 ```
 
+### Test the models
+After you train the models, the checkpoints will be saved under the specified outf directory.
+Simply run the following command to demo
+```bash
+python train.py --demo
+```
+
 ## Author
 
 Te-Lin Wu / [@telin0411](https://github.com/telin0411) @ [Joseph Lim's research lab](https://github.com/gitlimlab) @ USC
