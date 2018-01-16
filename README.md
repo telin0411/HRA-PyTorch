@@ -19,6 +19,7 @@ The DQN version of the architecture and the pseudo-rewards
 
 
 Note that this implementation may differ in details from the original paper such as model architectures, hyperparameters, applied optimizer, etc. while maintaining the main proposed idea.
+
 Code modified for PyTorch from the original repo [hra](https://github.com/Maluuba/hra)
 
 \*This code is still being developed and subject to change.
