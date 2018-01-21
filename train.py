@@ -41,7 +41,7 @@ def worker(params):
                 cuda=params['cuda'])
 
         expt = DQNExperiment(env=env, ai=ai,
-                             episode_max_len=params['episode_max_len'],
+                             eps_max_len=params['eps_max_len'],
                              history_len=params['history_len'],
                              max_start_nullops=params['max_start_nullops'],
                              replay_min_size=params['replay_min_size'],

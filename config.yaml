@@ -16,6 +16,7 @@ annealing: False               # if anneal
 final_epsilon: 1.0             # final epsilon after annealing
 test_epsilon: 0.0              # epsilon during testing
 
+gamma: 0.99
 learning_rate: 0.001
 minibatch_size: 32
 history_len: 1

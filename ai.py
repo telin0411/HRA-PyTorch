@@ -44,7 +44,7 @@ class AI(object):
         self.use_mean = use_mean
         self.use_hra = use_hra
         self.remove_features = remove_features
-        self.learning_frequency = learning_frequency
+        self.learning_frequency = learning_freq
         self.replay_max_size = replay_max_size
         self.mse_crit = nn.MSELoss()
         self.cuda = cuda
@@ -224,6 +224,7 @@ class AI(object):
     def learn(self):
         assert self.minibatch_size <= self.transitions.size, 'not enough data in the pool'
         s, a, r, s2, term = self.transitions.sample(self.minibatch_size)
+        #print (np.sum(r))
         objective = self.train_on_batch(s, a, r, s2, term)
         if self.update_counter == self.update_freq:
             self.update_weights()

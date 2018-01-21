@@ -4,7 +4,7 @@ from utils import Font, plot_and_write, create_folder
 
 
 class DQNExperiment(object):
-    def __init__(self, env, ai, episode_max_len, history_len=1, max_start_nullops=1, replay_min_size=0,
+    def __init__(self, env, ai, eps_max_len, history_len=1, max_start_nullops=1, replay_min_size=0,
                  score_window_size=100, rng=None, folder_location='/experiments/', folder_name='expt', testing=False):
         self.rng = rng
         self.fps = 0
@@ -20,7 +20,7 @@ class DQNExperiment(object):
         self.max_start_nullops = max_start_nullops
         if not testing:
             self.folder_name = create_folder(folder_location, folder_name)
-        self.episode_max_len = episode_max_len
+        self.episode_max_len = eps_max_len
         self.score_agent_window = np.zeros(score_window_size)
         self.steps_agent_window = np.zeros(score_window_size)
         self.replay_min_size = max(self.ai.minibatch_size, replay_min_size)
@@ -61,6 +61,7 @@ class DQNExperiment(object):
                 self.steps_agent_window = self._update_window(self.steps_agent_window, self.last_episode_steps)
             else:
                 self.episode_num += 1
+            print ("score = {}".format(sum(scores)))
         return np.mean(scores), np.mean(steps)
 
     def _do_episode(self, is_learning=True, rendering_sleep=0.1):

@@ -40,7 +40,7 @@ The outputs will be saved in the ./results folder as default.
 ### Train the models
 Simple run the following command
 ```bash
-python train.py
+python train.py --mode hra
 ```
 
 ### Test the models
