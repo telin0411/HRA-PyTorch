@@ -2,10 +2,6 @@ import time
 import numpy as np
 from utils import Font, plot_and_write, create_folder
 
-import time
-import numpy as np
-from utils import Font, plot_and_write, create_folder
-
 
 class DQNExperiment(object):
     def __init__(self, env, ai, episode_max_len, history_len=1, max_start_nullops=1, replay_min_size=0,
@@ -72,7 +68,6 @@ class DQNExperiment(object):
         self.env.reset()
         self._reset()
         term = False
-        self.fps = 0
         start_time = time.time()
         while not term:
             reward, term = self._step(evaluate=not is_learning)
@@ -88,7 +83,6 @@ class DQNExperiment(object):
                 self.env.render()
                 time.sleep(rendering_sleep)
         self.fps = int(self.last_episode_steps / max(0.1, (time.time() - start_time)))
-        return rewards
 
     def _step(self, evaluate=False):
         self.last_episode_steps += 1
@@ -100,8 +94,6 @@ class DQNExperiment(object):
         if not evaluate:
             self.ai.transitions.add(s=self.last_state[-1].astype('float32'), a=action, r=reward_channels, t=game_over)
             self.total_training_steps += 1
-        if new_obs.ndim == 1 and len(self.env.state_shape) == 2:
-            new_obs = new_obs.reshape(self.env.state_shape)
         self._update_state(new_obs)
         return reward, game_over
 
@@ -110,7 +102,7 @@ class DQNExperiment(object):
         self.score_agent = 0
 
         assert self.max_start_nullops >= self.history_len or self.max_start_nullops == 0
-        if self.max_start_nullops != 0:
+        if self.max_start_nullops > self.history_len:
             num_nullops = self.rng.randint(self.history_len, self.max_start_nullops)
             for i in range(num_nullops - self.history_len):
                 self.env.step(0)

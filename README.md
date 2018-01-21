@@ -9,18 +9,17 @@ This project is a [PyTorch](http://pytorch.org) implementation of [Hybrid Reward
 
 The architecture is as shown below.
 <p align="center">
-    <img src="figs/hra_archi1.png" height="360">
+    <img src="figs/hra_archi1.png" height="240" width="720">
 </p>
 
 The DQN version of the architecture and the pseudo-rewards
 <p align="center">
-    <img src="figs/hra_archi2.png" height="360">
+    <img src="figs/hra_archi2.png" height="240" width="720">
 </p>
 
 
 Note that this implementation may differ in details from the original paper such as model architectures, hyperparameters, applied optimizer, etc. while maintaining the main proposed idea.
 
-Code modified for PyTorch from the original repo [hra](https://github.com/Maluuba/hra)
 
 \*This code is still being developed and subject to change.
 
@@ -34,7 +33,7 @@ Code modified for PyTorch from the original repo [hra](https://github.com/Maluub
 - click (pip install click)
 
 ## Usage
-In the config.yaml, specify the hyper parameters
+In the config.yaml, specify the hyper parameters, see the comments in the file for the details.
 You can use --mode to change from dgn, dgn+1, hra, and hra+1
 The outputs will be saved in the ./results folder as default.
 
@@ -50,6 +49,11 @@ Simply run the following command to demo
 ```bash
 python train.py --demo
 ```
+
+## References
+[Hybrid Reward Architecture](https://arxiv.org/abs/1706.04208)
+[PyTorch-DQN](https://github.com/transedward/pytorch-dqn)
+Code modified for PyTorch from the original repo [hra](https://github.com/Maluuba/hra)
 
 ## Author
 

@@ -63,9 +63,9 @@ def set_params(params, mode, gamma=None, lr=None, folder_name=None):
         params['gamma'] = gamma
         params['learning_rate'] = lr
     if folder_name is None:
-        params['folder_name'] = mode + '__g' \
-        + str(params['gamma']) + '__lr' \
-        + str(params['learning_rate']) + '__'
+        params['folder_name'] = mode + '_g' \
+        + str(params['gamma']) + '_lr' \
+        + str(params['learning_rate']) + '_'
     else:
         params['folder_name'] = folder_name
     return params

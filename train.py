@@ -9,8 +9,6 @@ from environment.fruit_collection import FruitCollectionMini
 from ai import AI
 
 np.set_printoptions(suppress=True, linewidth=200, precision=2)
-floatX = 'float32'
-
 
 def worker(params):
     np.random.seed(seed=params['random_seed'])
@@ -33,7 +31,7 @@ def worker(params):
                 minibatch_size=params['minibatch_size'],
                 replay_max_size=params['replay_max_size'],
                 update_freq=params['update_freq'],
-                learning_frequency=params['learning_frequency'],
+                learning_freq=params['learning_frequency'],
                 num_units=params['num_units'],
                 remove_features=params['remove_features'],
                 use_mean=params['use_mean'],
@@ -54,7 +52,7 @@ def worker(params):
                              rng=random_state)
         env.reset()
         if not params['test']:
-            with open(expt.folder_name + '/config.yaml', 'w') as y:
+            with open(os.path.join(expt.folder_name + 'config.yaml'), 'w') as y:
                 yaml.safe_dump(params, y)  # saving params for future reference
             expt.do_training(total_eps=params['total_eps'],
                              eps_per_epoch=params['eps_per_epoch'],
@@ -81,7 +79,7 @@ def demo_func(params):
             minibatch_size=params['minibatch_size'],
             replay_max_size=params['replay_max_size'],
             update_freq=params['update_freq'],
-            learning_frequency=params['learning_frequency'],
+            learning_freq=params['learning_frequency'],
             num_units=params['num_units'],
             remove_features=params['remove_features'],
             use_mean=params['use_mean'],
@@ -90,7 +88,7 @@ def demo_func(params):
             outf=params['outf'],
             cuda=params['cuda'])
 
-    ai.load_weights(params['outf']+"/model_best.pth.tar")
+    ai.load_weights(os.path.join(params['outf'],"model_best.pth.tar"))
 
     expt = DQNExperiment(env=env, ai=ai,
                          episode_max_len=params['episode_max_len'],
@@ -110,11 +108,10 @@ def demo_func(params):
 @click.option('--options', '-o', multiple=True, nargs=2, type=click.Tuple([str, str]))
 @click.option('--demo/--no-demo', default=False, help='Do a demo.')
 @click.option('--mode', default='all', help='Which method to run: dqn, dqn+1, hra, hra+1, all')
-@click.option('--options', '-o', multiple=True, nargs=2, type=click.Tuple([str, str]))
 def run(mode, demo, options):
     valid_modes = ['dqn', 'dqn+1', 'hra', 'hra+1', 'all']
     assert mode in valid_modes
-    if mode in ['all']:
+    if mode is 'all':
         modes = valid_modes[:-1]
     else:
         modes = [mode]
@@ -133,12 +130,12 @@ def run(mode, demo, options):
         params[opt[0]] = new_opt
 
     if demo:
-        for m in modes:
-            params = set_params(params, m)
+        for mode in modes:
+            params = set_params(params, mode)
             demo_func(params)
     else:
-        for m in modes:
-            params = set_params(params, m)
+        for mode in modes:
+            params = set_params(params, mode)
             worker(params)
 
 

@@ -16,13 +16,12 @@ from utils import ExperienceReplay, slice_tensor_tensor, flatten
 from utils import save_checkpoint
 from model import Network
 
-floatX = 'float32'
 
 class AI(object):
     def __init__(self, state_shape, nb_actions, action_dim, reward_dim,
                  history_len=1, gamma=.99, learning_rate=0.00025, epsilon=0.05,
                  final_epsilon=0.05, test_epsilon=0.0, minibatch_size=32,
-                 replay_max_size=100, update_freq=50, learning_frequency=1,
+                 replay_max_size=100, update_freq=50, learning_freq=1,
                  num_units=250, remove_features=False, use_mean=False,
                  use_hra=True, rng=None, outf="outputs", cuda=True):
         self.rng = rng
@@ -69,12 +68,12 @@ class AI(object):
 
         if self.cuda:
             self.networks = [net_.cuda() for net_ in self.networks]
-            self.target_networks = [tnet_.cuda() for tnet_ in self.networks]
+            self.target_networks = [tnet_.cuda() for tnet_ in self.target_networks]
 
         print('Compiled Model and Learning.')
 
     def _build_network(self):
-        return Network(self.state_shape, int(self.nb_units / self.reward_dim),
+        return Network(self.state_shape, self.nb_units // self.reward_dim,
                        self.nb_actions, self.reward_dim, self.remove_features)
 
     def _remove_features(self, s, i):
