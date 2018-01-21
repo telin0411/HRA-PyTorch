@@ -51,9 +51,9 @@ python train.py --demo
 ```
 
 ## References
-[Hybrid Reward Architecture](https://arxiv.org/abs/1706.04208)
-[PyTorch-DQN](https://github.com/transedward/pytorch-dqn)
-Code modified for PyTorch from the original repo [hra](https://github.com/Maluuba/hra)
+- [Hybrid Reward Architecture](https://arxiv.org/abs/1706.04208)
+- [PyTorch-DQN](https://github.com/transedward/pytorch-dqn)
+- Code modified for PyTorch from the original repo [hra](https://github.com/Maluuba/hra)
 
 ## Author
 
